@@ -14,9 +14,7 @@ async function main() {
   }
 
   const users = [
-    { name: 'Alice', email: 'alice@example.com', password: 'password', role: 'VIEWER' },
     { name: 'Bob', email: 'bob@example.com', password: 'password', role: 'VIEWER' },
-    { name: 'Carol', email: 'carol@example.com', password: 'password', role: 'VIEWER' },
     { name: 'Manager', email: 'manager@example.com', password: 'password', role: 'MANAGER' },
     { name: 'Admin', email: 'admin@example.com', password: 'password', role: 'ADMIN' }
   ];
