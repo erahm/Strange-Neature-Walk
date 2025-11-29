@@ -1,21 +1,8 @@
 import React, { useState } from 'react'
-import { gql } from '@apollo/client'
 import { useMutation } from '@apollo/client/react'
 import { useNavigate } from 'react-router-dom'
+import { LOGIN } from '../queries/login'
 
-const LOGIN = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-      user {
-        id
-        name
-        email
-        role
-      }
-    }
-  }
-`
 
 export default function Login () {
   const [email, setEmail] = useState('')
