@@ -1,4 +1,3 @@
-import React from 'react'
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Users from './pages/Users'
@@ -20,10 +19,15 @@ export default function App () {
         <h1>Strange Neature Walk</h1>
         <Link to="/">Home</Link>
         {currentUser && <Link to="/users">Users</Link>}
-        {!token && <Link to="/login">Login</Link>}
-        {!token && <Link to="/register">Register</Link>}
-        {currentUser && <span style={{ marginLeft: 8 }}>Hello, {currentUser.name} ({currentUser.role})</span>}
-        {token && <button onClick={handleLogout}>Logout</button>}
+        <span className='user-management'>
+          {!token && <Link to="/login">Login</Link>}
+          {!token && <Link to="/register">Register</Link>}
+          {currentUser && <span className='user-info'>
+            <div>Hello, {currentUser.name}</div>
+            <div>({currentUser.role})</div>
+            </span>}
+          {token && <button onClick={handleLogout}>Logout</button>}
+        </span>
       </nav>
       <main>
         <Routes>
