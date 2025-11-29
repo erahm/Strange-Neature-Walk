@@ -49,7 +49,6 @@ export default function Users () {
         if (!isAdmin && !isManager) return null
         return (
           <div>
-            <div>is admin? {String(isAdmin)}</div>
             <h3>Create (admin/manager)</h3>
             <form onSubmit={handleCreateByAdmin}>
               <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -69,16 +68,12 @@ export default function Users () {
       <ul>
         {data?.users?.map((u) => (
           <li key={u.id}>
-            <strong>{u.name}</strong> ({u.email})
+            <strong>{u.name}</strong> ({u.email}) &nbsp;
             {(() => {
-              // I don't love this but it's an attempt to use CASL for conditional rendering
-              // I would prefer to just use user.role directly here
-              const canDelete = ability && ability.can('delete', subject('User', { id: u.id }))
-              const canShowRole = ability && (ability.can('create', 'User') || ability.can('manage', 'all'))
               return (
                 <>
-                  {canShowRole && <em> ({u.role})</em>}
-                  {canDelete && <button onClick={() => handleDelete(u.id)}>Delete</button>}
+                  {isAdmin || isManager && <em> ({u.role})</em>}
+                  {isAdmin && <button onClick={() => handleDelete(u.id)}>Delete</button>}
                 </>
               )
             })()}
