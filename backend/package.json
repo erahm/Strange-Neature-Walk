@@ -1,0 +1,35 @@
+{
+  "name": "snw-backend",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "docker-start": "npx prisma migrate deploy && node server.js",
+    "dev": "nodemon --watch './**/*' --ext js --exec node server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "@casl/ability": "^5.3.0",
+    "@apollo/server": "^4.10.0",
+    
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11",
+    "prisma": "^5.0.0"
+  }
+}

@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: snwdb
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/snwdb?schema=public"
+      PORT: 4000
+      RUNNING_IN_DOCKER: "true"
+      JWT_SECRET: "supersecret"
+    ports:
+      - '4000:4000'
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+          # For browsers hitting the frontend on http://localhost:5173, point the built bundle to the backend on port 4000
+          # so client code calls the backend directly. This avoids needing an nginx proxy for the API.
+          VITE_API_URL: http://localhost:4000/graphql
+    restart: unless-stopped
+    ports:
+      - '5173:80'
+    depends_on:
+      - backend
+    environment:
+        VITE_API_URL: http://localhost:4000/graphql
+
+volumes:
+  db-data:
+    driver: local
