@@ -29,8 +29,9 @@ export default function Login () {
     const { data } = await login({ variables: { email, password } })
     if (data?.login?.token) {
       localStorage.setItem('token', data.login.token)
-      // optionally save user
       localStorage.setItem('user', JSON.stringify(data.login.user))
+      // notify global state to update CASL ability
+      if (typeof window !== 'undefined') window.dispatchEvent(new Event('userChanged'))
       navigate('/users')
     }
   }

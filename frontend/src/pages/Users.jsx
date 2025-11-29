@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client/react'
 import { GET_USERS, DELETE_USER, CREATE_USER_ADMIN } from '../queries/users'
+import { useAbility } from '../ability'
+import { subject } from '@casl/ability'
 
 export default function Users () {
   const { data, loading, error } = useQuery(GET_USERS)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [register] = useMutation(CREATE_USER_ADMIN, {
-    refetchQueries: ['GetUsers']
-  })
   const [deleteUser] = useMutation(DELETE_USER, { refetchQueries: ['GetUsers'] })
   const [createUserAdmin] = useMutation(CREATE_USER_ADMIN, { refetchQueries: ['GetUsers'] })
   const [roleToCreate, setRoleToCreate] = useState('VIEWER')
+  const ability = useAbility()
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error: {error.message}</p>
@@ -39,9 +39,9 @@ export default function Users () {
     }
   }
 
-  const current = typeof window !== 'undefined' && localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
-  const isAdmin = current && current.role === 'ADMIN'
-  const isManager = current && current.role === 'MANAGER'
+
+  const isAdmin = ability && ability.can('manage', 'all')
+  const isManager = ability && ability.can('create', 'User') && !isAdmin
 
   return (
     <div>
@@ -49,6 +49,7 @@ export default function Users () {
         if (!isAdmin && !isManager) return null
         return (
           <div>
+            <div>is admin? {String(isAdmin)}</div>
             <h3>Create (admin/manager)</h3>
             <form onSubmit={handleCreateByAdmin}>
               <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -70,17 +71,16 @@ export default function Users () {
           <li key={u.id}>
             <strong>{u.name}</strong> ({u.email})
             {(() => {
-              const current = typeof window !== 'undefined' && localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
-              if (!current) return null
-              const isAdmin = current.role === 'ADMIN'
-              const isManager = current.role === 'MANAGER'
-              if (isAdmin || isManager) {
-                return <em> ({u.role})</em>
-              }
-              if (isAdmin) {
-                return <button onClick={() => handleDelete(u.id)}>Delete</button>
-              }
-              return null
+              // I don't love this but it's an attempt to use CASL for conditional rendering
+              // I would prefer to just use user.role directly here
+              const canDelete = ability && ability.can('delete', subject('User', { id: u.id }))
+              const canShowRole = ability && (ability.can('create', 'User') || ability.can('manage', 'all'))
+              return (
+                <>
+                  {canShowRole && <em> ({u.role})</em>}
+                  {canDelete && <button onClick={() => handleDelete(u.id)}>Delete</button>}
+                </>
+              )
             })()}
           </li>
         ))}
