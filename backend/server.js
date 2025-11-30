@@ -17,7 +17,12 @@ const { json } = bodyParser;
 async function startServer() {
   const app = express();
   app.use(cors());
-  app.use(json())
+  app.use(json());
+
+  // Mount GraphiQL at /graphiql
+  import('./graphql/graphiql.js').then(({ default: graphiqlRouter }) => {
+    app.use('/graphiql', graphiqlRouter);
+  });
 
   const JWT_SECRET = process.env.JWT_SECRET || 'defaultsecret';
 
