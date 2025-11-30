@@ -54,10 +54,6 @@ export function defineAbilityFor(user) {
   return new Ability(rules)
 }
 
-export function buildAbilityFor(user) {
-  return defineAbilityFor(user)
-}
-
 export function useAbility() {
   return useContext(AbilityContext)
 }
