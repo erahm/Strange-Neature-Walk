@@ -4,6 +4,11 @@ import { subject } from '@casl/ability';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'defaultsecret';
 
+/**
+ * In a larger application or given more time, I would split these out into a data access layer
+ * in order to separate concerns and make the code more maintainable/testable.
+ */
+
 export const resolvers = {
   Query: {
     users: async (_, __, { prisma, ability }) => {
