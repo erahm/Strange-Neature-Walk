@@ -45,7 +45,9 @@ export default function Users () {
   return (
     <div>
       {(() => {
-        if (!isAdmin && !isManager) {return null}
+        if (!isAdmin) {
+          return null
+        }
         return (
           <div>
             <h3>Create (admin/manager)</h3>
