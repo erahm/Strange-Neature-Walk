@@ -6,13 +6,17 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "db": "docker-compose up -d",
-    "backend": "cd backend && npm run dev",
-    "frontend": "cd frontend && npm run dev",
+    "start:db": "docker-compose up -d",
+    "start:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run dev",
     "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
-    "seed:docker": "docker-compose run --rm backend npm run seed"
+    "seed:docker": "docker-compose run --rm backend npm run seed",
+    "lint": "eslint frontend backend --ext .js,.jsx",
+    "lint-fix": "eslint frontend backend --ext .js,.jsx --fix"
   },
   "devDependencies": {
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-react": "^7.0.0"
   }
 }

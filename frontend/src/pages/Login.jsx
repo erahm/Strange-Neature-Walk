@@ -12,13 +12,13 @@ export default function Login () {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    if (!email || !password) return
+    if (!email || !password) {return}
     const { data } = await login({ variables: { email, password } })
     if (data?.login?.token) {
       localStorage.setItem('token', data.login.token)
       localStorage.setItem('user', JSON.stringify(data.login.user))
       // notify global state to update CASL ability
-      if (typeof window !== 'undefined') window.dispatchEvent(new Event('userChanged'))
+      if (typeof window !== 'undefined') {window.dispatchEvent(new Event('userChanged'))}
       navigate('/users')
     }
   }

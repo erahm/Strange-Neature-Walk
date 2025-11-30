@@ -12,12 +12,12 @@ export const UserRegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!name || !email || !password) return
+    if (!name || !email || !password) {return}
     const { data } = await register({ variables: { name, email, password } })
     if (data?.register?.token) {
       localStorage.setItem('token', data.register.token)
       localStorage.setItem('user', JSON.stringify(data.register.user))
-      if (typeof window !== 'undefined') window.dispatchEvent(new Event('userChanged'))
+      if (typeof window !== 'undefined') {window.dispatchEvent(new Event('userChanged'))}
       navigate('/users')
     }
   }

@@ -38,7 +38,9 @@ async function main() {
     if (!existing) {
       const hashed = await bcrypt.hash(user.password, 10);
       const data = { name: user.name, email: user.email, password: hashed };
-      if (user.role) data.role = user.role;
+      if (user.role) {
+        data.role = user.role;
+      }
       await prisma.user.create({ data });
     }
   });

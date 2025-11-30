@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client/react'
 import { GET_USERS, DELETE_USER, CREATE_USER_ADMIN } from '../queries/users'
 import { useAbility } from '../ability'
-import { subject } from '@casl/ability'
 
 export default function Users () {
   const { data, loading, error } = useQuery(GET_USERS)
@@ -14,12 +13,12 @@ export default function Users () {
   const [roleToCreate, setRoleToCreate] = useState('VIEWER')
   const ability = useAbility()
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error: {error.message}</p>
+  if (loading) {return <p>Loading...</p>}
+  if (error) {return <p>Error: {error.message}</p>}
 
   const handleCreateByAdmin = async (e) => {
     e.preventDefault()
-    if (!name || !email || !password) return
+    if (!name || !email || !password) {return}
     try {
       await createUserAdmin({ variables: { name, email, password, role: roleToCreate } })
       setName('')
@@ -46,7 +45,7 @@ export default function Users () {
   return (
     <div>
       {(() => {
-        if (!isAdmin && !isManager) return null
+        if (!isAdmin && !isManager) {return null}
         return (
           <div>
             <h3>Create (admin/manager)</h3>
