@@ -9,6 +9,23 @@ export const typeDefs = gql`
     createdAt: String!
   }
 
+  type ExhibitCategory {
+    id: Int!
+    name: String!
+  }
+  
+  type Exhibit {
+    id: Int!
+    name: String!
+    description: String!
+    category: ExhibitCategory!
+    imageUrl: String!
+    createdAt: String!
+    updatedAt: String!
+    createdBy: User!
+    updatedBy: User!
+  }
+
   type AuthPayload {
     token: String!
     user: User!
@@ -18,6 +35,9 @@ export const typeDefs = gql`
     users: [User!]!
     user(id: Int!): User
     me: User
+    exhibits: [Exhibit!]!
+    exhibit(id: Int!): Exhibit
+    exhibitCategories: [ExhibitCategory!]!
   }
 
   type Mutation {
@@ -26,5 +46,8 @@ export const typeDefs = gql`
     createUser(name: String!, email: String!, password: String!, role: String): User!
     updateUser(id: Int!, name: String, email: String, password: String): User!
     deleteUser(id: Int!): User!
+    createExhibit(name: String!, description: String!, categoryId: Int!, imageUrl: String!): Exhibit!
+    updateExhibit(id: Int!, name: String, description: String, categoryId: Int, imageUrl: String): Exhibit!
+    deleteExhibit(id: Int!): Exhibit! 
   }
 `;
