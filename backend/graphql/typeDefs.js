@@ -1,6 +1,6 @@
-const { gql } = require('graphql-tag');
+import { gql } from 'graphql-tag';
 
-module.exports = gql`
+export const typeDefs = gql`
   type User {
     id: Int!
     name: String!

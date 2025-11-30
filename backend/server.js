@@ -1,22 +1,24 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const { json } = require('body-parser');
-const { ApolloServer } = require('@apollo/server');
-const { expressMiddleware } = require('@apollo/server/express4');
-const { PrismaClient } = require('@prisma/client');
-const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers');
-const { defineAbilitiesForUser } = require('./authz/userPrivileges');
+import * as dotEnv from 'dotenv';
+dotEnv.config();
+import bodyParser from 'body-parser';
+import express from 'express';
+import cors from 'cors';
+import jwt from 'jsonwebtoken';
+import { ApolloServer } from '@apollo/server';
+import { expressMiddleware } from '@apollo/server/express4';
+import { PrismaClient } from '@prisma/client';
+import { typeDefs } from './graphql/typeDefs.js';
+import { resolvers } from './graphql/resolvers.js';
+import { defineAbilitiesForUser } from './authz/userPrivileges.js';
 
 const prisma = new PrismaClient();
+const { json } = bodyParser;
 
 async function startServer() {
   const app = express();
   app.use(cors());
-  app.use(json());
+  app.use(json())
 
-  const jwt = require('jsonwebtoken');
   const JWT_SECRET = process.env.JWT_SECRET || 'defaultsecret';
 
 
