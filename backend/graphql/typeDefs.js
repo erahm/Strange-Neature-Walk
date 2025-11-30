@@ -49,5 +49,8 @@ export const typeDefs = gql`
     createExhibit(name: String!, description: String!, categoryId: Int!, imageUrl: String!): Exhibit!
     updateExhibit(id: Int!, name: String, description: String, categoryId: Int, imageUrl: String): Exhibit!
     deleteExhibit(id: Int!): Exhibit! 
+    createExhibitCategory(name: String!): ExhibitCategory!
+    updateExhibitCategory(id: Int!, name: String!): ExhibitCategory!
+    deleteExhibitCategory(id: Int!): ExhibitCategory! 
   }
 `;
