@@ -13,8 +13,12 @@ export default function Users () {
   const [roleToCreate, setRoleToCreate] = useState('VIEWER')
   const ability = useAbility()
 
-  if (loading) {return <p>Loading...</p>}
-  if (error) {return <p>Error: {error.message}</p>}
+  if (loading) {
+    return <p>Loading...</p>
+  }
+  if (error) {
+    return <p>Error: {error.message}</p>
+  }
 
   const handleCreateByAdmin = async (e) => {
     e.preventDefault()
@@ -40,7 +44,7 @@ export default function Users () {
 
 
   const isAdmin = ability && ability.can('manage', 'all')
-  const isManager = ability && ability.can('create', 'User') && !isAdmin
+  const isManager = ability && ability.can('update', 'User') && !isAdmin
 
   return (
     <div>

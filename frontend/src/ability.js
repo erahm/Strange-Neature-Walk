@@ -3,25 +3,52 @@ import { AbilityBuilder, Ability } from '@casl/ability'
 
 export const AbilityContext = createContext(null)
 
+export const privilegeSets = (can, cannot) => ({
+  readOnly: (asset) => {
+    return [
+      can('read', asset),
+      cannot('create', asset),
+      cannot('update', asset),
+      cannot('delete', asset),
+    ]
+  },
+  readUpdate: (asset) => {
+    return [
+      can('read', asset),
+      cannot('create', asset),
+      can('update', asset),
+      cannot('delete', asset),
+    ]
+  },
+  noAccess: (asset) => {
+    return [
+      cannot('read', asset),
+      cannot('create', asset),
+      cannot('update', asset),
+      cannot('delete', asset),
+    ]
+  },
+  fullAccess: () => can('manage', 'all'),
+});
+
 export function defineAbilityFor(user) {
   const { can, cannot, rules } = new AbilityBuilder(Ability)
+  const privileges = privilegeSets(can, cannot)
 
   if (!user) {
-    can('read', 'User')
-    cannot('create', 'User')
-    cannot('update', 'User')
-    cannot('delete', 'User')
+    privileges.noAccess('User');
+    privileges.readOnly('Category');
+    privileges.readOnly('Exhibit');
   } else if (user.role === 'ADMIN') {
-    can('manage', 'all')
+    privileges.fullAccess();
   } else if (user.role === 'MANAGER') {
-    can('read', 'User')
-    can('create', 'User')
-    can('update', 'User')
-    cannot('delete', 'User')
+    privileges.readUpdate('User');
+    privileges.readUpdate('Category');
+    privileges.readUpdate('Exhibit');
   } else {
-    can('read', 'User')
-    cannot('update', 'User', { id: user.id })
-    cannot('delete', 'User', { id: user.id })
+    privileges.readOnly('User');
+    privileges.readOnly('Category');
+    privileges.readOnly('Exhibit');
   }
 
   return new Ability(rules)
