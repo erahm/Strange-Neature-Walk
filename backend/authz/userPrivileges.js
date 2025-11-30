@@ -16,7 +16,7 @@ export function defineAbilitiesForUser(user) {
     cannot('create', 'User');
     can('update', 'User');
     cannot('delete', 'User');
-  } else {
+  } else if (user.role === 'VIEWER') {
     // regular user
     can('read', 'User');
     cannot('create', 'User');
