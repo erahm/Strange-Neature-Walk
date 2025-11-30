@@ -1,5 +1,5 @@
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
-import Home from './pages/Home'
+import Exhibits from './pages/Exhibits'
 import Users from './pages/Users'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -17,7 +17,7 @@ export default function App () {
     <div className="app">
       <nav>
         <h1>Strange Neature Walk</h1>
-        <Link to="/">Home</Link>
+        <Link to="/">Exhibits</Link>
         {currentUser && <Link to="/users">Users</Link>}
         <span className='user-management'>
           {!token && <Link to="/login">Login</Link>}
@@ -31,7 +31,7 @@ export default function App () {
       </nav>
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Exhibits />} />
           <Route path="/users" element={<Users />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
