@@ -8,12 +8,35 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id                Int       @id @default(autoincrement())
+  name              String
+  email             String    @unique
+  password          String
+  role              Role      @default(VIEWER)
+  createdAt         DateTime  @default(now())
+  exhibitsCreated   Exhibit[] @relation(name: "UserExhibitsCreated")
+  exhibitsUpdated   Exhibit[] @relation(name: "UserExhibitsUpdated")
+}
+
+model Exhibit {
+  id          Int             @id @default(autoincrement())
+  name        String
+  description String
+  categoryId  Int
+  category    ExhibitCategory @relation(fields: [categoryId], references: [id])
+  imageUrl    String
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime?
+  createdById Int?
+  updatedById Int?
+  createdBy   User?            @relation(name: "UserExhibitsCreated", fields: [createdById], references: [id])
+  updatedBy   User?            @relation(name: "UserExhibitsUpdated", fields: [updatedById], references: [id])
+}
+
+model ExhibitCategory {
+  id        Int @id @default(autoincrement())
   name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(VIEWER)
-  createdAt DateTime @default(now())
+  exhibits  Exhibit[]
 }
 
 enum Role {
