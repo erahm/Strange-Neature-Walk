@@ -41,6 +41,7 @@ export default function Exhibit (props) {
       <h2>{exhibit.name}</h2>
       <ExhibitImage src={exhibit.imageUrl} alt={exhibit.name} />
       <p>{exhibit.description}</p>
+      <h3>How neat is that?</h3>
     </ExhibitWrapper>
   )
 }
