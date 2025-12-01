@@ -60,7 +60,7 @@ const EditDescrition = styled.textarea`
   margin: 1rem 0;
 `;
 
-export default function Exhibit (props) {
+export default function Exhibit () {
   const params = useParams();
   const idParam = params?.id;
   const id = idParam ? parseInt(idParam, 10) : undefined;
@@ -73,6 +73,12 @@ export default function Exhibit (props) {
   const [categoryId, setCategoryId] = useState(undefined);
   const [deleteExhibit] = useMutation(DELETE_EXHIBIT);
   const [updateExhibit] = useMutation(UPDATE_EXHIBIT);
+
+  /*
+  ** These should be in state but I left it like this because it creates a handy bug
+  ** for displaying AuthZ checks working when trying to edit or delete resources
+  ** the user doesn't have permission for.
+  */
   const { isAdmin, isManager } = isManagerAdmin(ability);
 
 
