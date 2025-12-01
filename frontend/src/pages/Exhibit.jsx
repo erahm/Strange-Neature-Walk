@@ -5,7 +5,7 @@ import { GET_CATEGORIES } from "../queries/categories"
 import { useNavigate, useParams } from "react-router-dom";
 import { useAbility } from "../ability";
 import { isManagerAdmin } from "../utilities/isManagerAdmin";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ExhibitWrapper = styled.div`
   display: flex;
@@ -63,14 +63,18 @@ const EditDescrition = styled.textarea`
 export default function Exhibit (props) {
   const params = useParams();
   const idParam = params?.id;
-  // convert string param to integer for GraphQL Int!
   const id = idParam ? parseInt(idParam, 10) : undefined;
   const ability = useAbility();
   const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [categoryId, setCategoryId] = useState(undefined);
   const [deleteExhibit] = useMutation(DELETE_EXHIBIT);
   const [updateExhibit] = useMutation(UPDATE_EXHIBIT);
   const { isAdmin, isManager } = isManagerAdmin(ability);
+
 
   const handleEditClick = () => {
     setEditMode(true);
@@ -81,7 +85,6 @@ export default function Exhibit (props) {
     const ok = window.confirm('Are you sure you want to delete this exhibit?');
     if (!ok) return;
     try {
-      // refetch the exhibit tiles query and wait for it to complete before navigating
       await deleteExhibit({ variables: { id }, refetchQueries: [{ query: GET_EXHIBIT_TILES }], awaitRefetchQueries: true });
     } catch (err) {
       console.error('delete failed', err);
@@ -91,8 +94,32 @@ export default function Exhibit (props) {
     navigate('/');
   }
 
-  const handleUpdate = () => {
-    setEditMode(false);
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    if (!name || !description|| !categoryId) {
+      alert('Please fill out name, description and category');
+      return;
+    }
+    try {
+      await updateExhibit({
+        variables: {
+          id,
+          name,
+          description,
+          imageUrl: imageUrl || '',
+          categoryId,
+        },
+        refetchQueries: [
+          { query: GET_EXHIBIT, variables: { id } },
+          { query: GET_EXHIBIT_TILES }
+        ],
+        awaitRefetchQueries: true,
+      });
+      setEditMode(false);
+    } catch (err) {
+      console.error('update failed', err);
+      alert('Update failed: ' + (err?.message || err));
+    }
   }
 
   if (ability && ability.cannot('read', 'Exhibit')) {
@@ -106,8 +133,17 @@ export default function Exhibit (props) {
   const { data, loading, error } = useQuery(GET_EXHIBIT, { variables: { id } });
   const exhibit = data?.exhibit;
 
-  const { data: categoriesData, loading: categoriesLoading, error: categoriesError } = useQuery(GET_CATEGORIES);
+  const { data: categoriesData } = useQuery(GET_CATEGORIES);
   const categories = categoriesData?.exhibitCategories || [];
+
+  useEffect(() => {
+    if (exhibit) {
+      setName(exhibit.name || '');
+      setDescription(exhibit.description || '');
+      setImageUrl(exhibit.imageUrl || '');
+      setCategoryId(exhibit.category.id || undefined);
+    }
+  }, [exhibit]);
 
   if (loading) {
     return <p>Loading...</p>
@@ -139,15 +175,15 @@ export default function Exhibit (props) {
     }
     { editMode && 
       <ExhibitWrapper>
-        <input type="text" defaultValue={exhibit.name} />
-        <select style={{marginTop: '1rem'}} defaultValue={exhibit.category.id}>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <select style={{marginTop: '1rem'}} value={categoryId || ''} onChange={(e) => setCategoryId(Number(e.target.value))}>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>{category.name}</option>
           ))}
         </select>
-        <ExhibitImage src={exhibit.imageUrl} alt={exhibit.name} />
-        <input type="text" defaultValue={exhibit.imageUrl} />
-        <EditDescrition defaultValue={exhibit.description} />
+        <ExhibitImage src={imageUrl} alt={name} />
+        <input type="text" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
+        <EditDescrition value={description} onChange={(e) => setDescription(e.target.value)} />
         <ButtonWrapper>
           <SaveButton onClick={handleUpdate}>Save</SaveButton>
           <DeleteButton onClick={handleDelete}>Delete</DeleteButton>

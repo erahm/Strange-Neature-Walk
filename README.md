@@ -127,7 +127,6 @@ npx prisma migrate dev --name add_field
 
 - I didn't end up creating any field level authz rules in the API
   - Given a bit more time and better knowledge of CASL I would redact certain data from Users in the API response. That data is redacted in the UI but a savvy user could inspect the network call and find that data.
-- I created several mutations that I never ended up using. They seemed like things I would use but I needed to stop working on this and actually turn it in.
 - I got a little distracted and spent some time setting up GraphiQL and ESLint
   - This turned out to be useful but it wasn't necessary.
 - Several people asked me during interviews if I've ever used generative AI, so I decided to try using AI to scaffold the application for me but that ended up taking longer to get right than it probably would have taken me to just do it by hand.
@@ -136,3 +135,5 @@ npx prisma migrate dev --name add_field
 - Given more time I would like to:
   - create an Audit table to capture the before and after as well as UserId and event time on all Create/Update/Delete events.
   - Make it pretty. I added enough styling to make it usable but it's ugly. I started off just using `styles.css` and about halfway through decided to bring in `styled-components` to scope styles to elements and speed up development. When working on a small project by myself or a small team, `styles.css` is managable but doesn't scale well as the project and team grows.
+
+- There's a bug where if you log in as either a manager or admin, go to an exhibit, click `edit` and then log out, you'll still see the `save` and `delete` buttons. This is due to me not resetting the `editMode` variable but I decided to leave this bug in because id shows that the authz check through CASL is working by notifying the user that they lack the permissions to perform that action and then not allowing that action to go through.

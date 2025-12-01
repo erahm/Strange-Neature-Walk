@@ -16,6 +16,7 @@ export const GET_EXHIBIT = gql`
       name
       description
       category {
+        id
         name
       }
       imageUrl
