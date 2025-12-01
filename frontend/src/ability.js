@@ -37,17 +37,17 @@ export function defineAbilityFor(user) {
 
   if (!user) {
     privileges.noAccess('User');
-    privileges.readOnly('Category');
+    privileges.readOnly('ExhibitCategory');
     privileges.readOnly('Exhibit');
   } else if (user.role === 'ADMIN') {
     privileges.fullAccess();
   } else if (user.role === 'MANAGER') {
     privileges.readUpdate('User');
-    privileges.readUpdate('Category');
+    privileges.readUpdate('ExhibitCategory');
     privileges.readUpdate('Exhibit');
   } else {
     privileges.readOnly('User');
-    privileges.readOnly('Category');
+    privileges.readOnly('ExhibitCategory');
     privileges.readOnly('Exhibit');
   }
 
