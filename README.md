@@ -121,6 +121,18 @@ npx prisma migrate dev --name add_field
 - manager@example.com / password (MANAGER)
 - admin@example.com / password (ADMIN)
 
-Use the login mutation to obtain a JWT and set it in the `Authorization` header: `Authorization: Bearer <token>`.
-
 ---
+
+## Notes and Considerations
+
+- I didn't end up creating any field level authz rules in the API
+  - Given a bit more time and better knowledge of CASL I would redact certain data from Users in the API response. That data is redacted in the UI but a savvy user could inspect the network call and find that data.
+- I created several mutations that I never ended up using. They seemed like things I would use but I needed to stop working on this and actually turn it in.
+- I got a little distracted and spent some time setting up GraphiQL and ESLint
+  - This turned out to be useful but it wasn't necessary.
+- Several people asked me during interviews if I've ever used generative AI, so I decided to try using AI to scaffold the application for me but that ended up taking longer to get right than it probably would have taken me to just do it by hand.
+  - CoPilot seemed okay at setting up Docker once I had basically changed the entire intial monorepo structure.
+  - I tried to have CoPilot write a few basic unit tests but it kept writing tests and then trying to change the actual logic to make those tests pass instead of writing tests that covered the existing logic.
+- Given more time I would like to:
+  - create an Audit table to capture the before and after as well as UserId and event time on all Create/Update/Delete events.
+  - Make it pretty. I added enough styling to make it usable but it's ugly. I started off just using `styles.css` and about halfway through decided to bring in `styled-components` to scope styles to elements and speed up development. When working on a small project by myself or a small team, `styles.css` is managable but doesn't scale well as the project and team grows.
