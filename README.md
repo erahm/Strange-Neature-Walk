@@ -100,7 +100,7 @@ The Vite dev server runs at http://localhost:5173 by default.
 
 ## Prisma migrations & seed
 
-- Migrations live in `backend/prisma/migrations/`. Keep this directory in source control and rely on `npx prisma migrate dev` (local) or `npx prisma migrate deploy` (CI/production) for applying them.
+- Migrations live in `backend/prisma/migrations/`. Keep this directory in source control and rely on `npx prisma migrate dev` (local).
 - The startup script in Docker runs migrations with `npx prisma migrate deploy || npx prisma db push`, followed by the seeding script `node prisma/seed.js`.
 
 Create a new migration after editing the schema:
@@ -108,12 +108,6 @@ Create a new migration after editing the schema:
 ```bash
 cd backend
 npx prisma migrate dev --name add_field
-```
-
-Apply migrations in CI/Production:
-
-```bash
-npx prisma migrate deploy
 ```
 
 ---
