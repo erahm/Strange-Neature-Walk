@@ -1,8 +1,5 @@
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
-import Exhibits from './pages/Exhibits'
-import Users from './pages/Users'
-import Login from './pages/Login'
-import Register from './pages/Register'
+import { Exhibit, Exhibits, Users, Login, Register } from './pages'
 
 export default function App () {
   const navigate = useNavigate()
@@ -35,6 +32,7 @@ export default function App () {
           <Route path="/users" element={<Users />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/exhibit/:id" element={<Exhibit />} />
         </Routes>
       </main>
     </div>
