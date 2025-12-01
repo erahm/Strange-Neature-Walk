@@ -30,7 +30,6 @@ export default function Exhibits () {
           <ExhibitTile key={exhibit.id} {...exhibit} />
         ))}
       </TileWrapper>
-      <h3>How neat is that?!</h3>
     </div>
   )
 }

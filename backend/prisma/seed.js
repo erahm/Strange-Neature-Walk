@@ -26,11 +26,11 @@ async function main() {
   ];
 
   const exhibits = [
-    { name: 'Bear', description: "It is estimated that bears kill over two million salmon a year. Attacks by salmon on bears are much more rare. Right, that's got to be true, right?", categoryName: 'Fauna', imageUrl: 'https://i.ytimg.com/vi/PjroTXtMtIA/hqdefault.jpg' },
+    { name: 'Bear', description: "It is estimated that bears kill over two million salmon a year. Attacks by salmon on bears are much more rare. Right? That's got to be true, right?", categoryName: 'Fauna', imageUrl: 'https://i.ytimg.com/vi/PjroTXtMtIA/hqdefault.jpg' },
     { name: 'Shark', description: "Menacing and terrifying, the shark has been menacing and terrifying for over a decade!", categoryName: 'Fauna', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzdMq3MiF87k9nWRNdxEN_YvPenpLj2gt5JQ&s' },
     { name: 'Aspen', description: "You can tell that it's and aspen because of the way it is.", categoryName: 'Flora', imageUrl: 'https://i.ytimg.com/vi/wKiXdqaY180/hqdefault.jpg' },
     { name: 'Pinecone', description: "Early settlers thought that pinecones were actually tree poop.", categoryName: 'Flora', imageUrl: 'https://i.ytimg.com/vi/a_C18uAZHdo/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGEYgZSgqMA8=&rs=AOn4CLA63Y21RBIwHQXDIOoOzXKa3TRVzA' },
-    { name: 'Christmas Tree', description: "Although a tidbit of information that not everybody knows is that Christmas trees actually grow all year round.", categoryName: 'Flora', imageUrl: 'https://i.ytimg.com/vi/a_C18uAZHdo/hqdefault_141100.jpg?sqp=-oaymwFBCNACELwBSFryq4qpAzMIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB8AEB-AH-CYAC0AWKAgwIABABGEYgZSgqMA8=&rs=AOn4CLA7LKdD6jv-taUS6UGRi3EBUGvkKg' }
+    { name: 'Christmas Tree', description: "A tidbit of information that not everybody knows is that Christmas trees actually grow all year round.", categoryName: 'Flora', imageUrl: 'https://i.ytimg.com/vi/a_C18uAZHdo/hqdefault_141100.jpg?sqp=-oaymwFBCNACELwBSFryq4qpAzMIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB8AEB-AH-CYAC0AWKAgwIABABGEYgZSgqMA8=&rs=AOn4CLA7LKdD6jv-taUS6UGRi3EBUGvkKg' }
   ]
 
   users.forEach( async (user) => {

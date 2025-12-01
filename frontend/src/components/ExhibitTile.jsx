@@ -12,7 +12,6 @@ const Wrapper = styled.div`
 
 const TileImage = styled.img`
   width: 5em;
-  height: 5em;
 `;
 
 export const ExhibitTile = (exhibit) => {

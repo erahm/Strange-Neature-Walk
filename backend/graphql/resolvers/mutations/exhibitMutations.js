@@ -49,7 +49,7 @@ export const exhibitMutations = {
     });
   },
   deleteExhibit: async (_, { id }, { prisma, ability }) => {
-    const existing = prisma.exhibit.findUnique({ where: { id } });
+    const existing = await prisma.exhibit.findUnique({ where: { id } });
     if (!existing) {
       throw new Error('Exhibit not found', { code: 'NOT_FOUND', status: 404 });
     }
@@ -60,9 +60,9 @@ export const exhibitMutations = {
     return prisma.exhibit.delete({
       where: { id },
       include: {
-        category: true,
-        createdBy: true,
-        updatedBy: true,
+        category: false,
+        createdBy: false,
+        updatedBy: false,
       },
     });
   }

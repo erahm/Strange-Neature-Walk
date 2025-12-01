@@ -2,6 +2,7 @@ import { useQuery, useMutation } from '@apollo/client/react'
 import { GET_USERS, DELETE_USER } from '../queries/users'
 import { useAbility } from '../ability'
 import { CreateUserForm } from '../components/CreateUserForm'
+import { isManagerAdmin } from '../utilities/isManagerAdmin'
 
 export default function Users () {
   const { data, loading, error } = useQuery(GET_USERS)
@@ -23,8 +24,8 @@ export default function Users () {
     }
   }
 
-  const isAdmin = ability && ability.can('manage', 'all')
-  const isManager = ability && ability.can('update', 'User') && !isAdmin
+  const { isAdmin, isManager } = isManagerAdmin(ability);
+  const users = data?.users;
 
   return (
     <div>
@@ -36,7 +37,7 @@ export default function Users () {
       })()}
 
       <ul>
-        {data?.users?.map((user) => (
+        {users.map((user) => (
           <li key={user.id}>
             <strong>{user.name}</strong> ({user.email}) &nbsp;
             {(() => {
