@@ -1,5 +1,6 @@
-export { default as Exhibits } from "./Exhibits";
-export { default as Users } from "./Users";
-export { default as Login } from "./Login";
-export { default as Register } from "./Register";
-export { default as Exhibit } from "./Exhibit";
+export { Exhibits } from "./Exhibits";
+export { Users } from "./Users";
+export { Login } from "./Login";
+export { Register } from "./Register";
+export { Exhibit } from "./Exhibit";
+export { CreateExhibit } from "./CreateExhibit";

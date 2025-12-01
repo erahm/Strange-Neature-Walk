@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { LOGIN } from '../queries/login'
 
 
-export default function Login () {
+export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [login, { loading, error }] = useMutation(LOGIN)

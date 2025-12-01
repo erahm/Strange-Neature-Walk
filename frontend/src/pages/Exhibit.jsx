@@ -60,7 +60,7 @@ const EditDescrition = styled.textarea`
   margin: 1rem 0;
 `;
 
-export default function Exhibit () {
+export const Exhibit = () => {
   const params = useParams();
   const idParam = params?.id;
   const id = idParam ? parseInt(idParam, 10) : undefined;

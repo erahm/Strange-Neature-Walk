@@ -18,7 +18,7 @@ const PageWrapper = styled.div`
   width: 100%;
 `;
 
-export default function Exhibits () {
+export const Exhibits = () => {
   const { data, loading, error } = useQuery(GET_EXHIBIT_TILES);
 
   if (loading) {

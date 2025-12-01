@@ -31,6 +31,21 @@ export const GET_EXHIBIT = gql`
   }
 `;
 
+export const CREATE_EXHIBIT = gql`
+  mutation CreateExhibit($name: String!, $description: String!, $imageUrl: String!, $categoryId: Int!) {
+    createExhibit(name: $name, description: $description, imageUrl: $imageUrl, categoryId: $categoryId) {
+      id
+      name
+      description
+      imageUrl
+      category {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const UPDATE_EXHIBIT = gql`
   mutation UpdateExhibit($id: Int!, $name: String!, $description: String!, $imageUrl: String!, $categoryId: Int!) {
     updateExhibit(id: $id, name: $name, description: $description, imageUrl: $imageUrl, categoryId: $categoryId) {

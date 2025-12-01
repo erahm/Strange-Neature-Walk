@@ -4,7 +4,7 @@ import { useAbility } from '../ability'
 import { CreateUserForm } from '../components/CreateUserForm'
 import { isManagerAdmin } from '../utilities/isManagerAdmin'
 
-export default function Users () {
+export const Users = () => {
   const { data, loading, error } = useQuery(GET_USERS)
   const [deleteUser] = useMutation(DELETE_USER, { refetchQueries: ['GetUsers'] })
   const ability = useAbility()

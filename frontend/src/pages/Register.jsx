@@ -1,6 +1,6 @@
 import { UserRegistrationForm } from '../components/UserRegistrationForm'
 
-export default function Register () {
+export const Register = () => {
   return (
    <UserRegistrationForm />
   )
