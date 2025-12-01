@@ -7,19 +7,19 @@ export function defineAbilitiesForUser(user) {
   if (!user) {
     // unauthenticated users can read User listings
     privileges.noAccess('User');
-    privileges.readOnly('Category');
+    privileges.readOnly('ExhibitCategory');
     privileges.readOnly('Exhibit');
   } else if (user.role === 'ADMIN') {
     privileges.fullAccess();
   } else if (user.role === 'MANAGER') {
     // Managers can read all users, and update any user's name/email
     privileges.readUpdate('User');
-    privileges.readUpdate('Category');
+    privileges.readUpdate('ExhibitCategory');
     privileges.readUpdate('Exhibit');
   } else if (user.role === 'VIEWER') {
     // regular user
     privileges.readOnly('User');
-    privileges.readOnly('Category');
+    privileges.readOnly('ExhibitCategory');
     privileges.readOnly('Exhibit');
   }
   return new Ability(rules);

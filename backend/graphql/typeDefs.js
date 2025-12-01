@@ -22,8 +22,8 @@ export const typeDefs = gql`
     imageUrl: String!
     createdAt: String!
     updatedAt: String!
-    createdBy: User!
-    updatedBy: User!
+    createdBy: User
+    updatedBy: User
   }
 
   type AuthPayload {
