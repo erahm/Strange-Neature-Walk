@@ -10,6 +10,14 @@ const TileWrapper = styled.div`
   justify-content: space-around;
 `;
 
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+
 export default function Exhibits () {
   const { data, loading, error } = useQuery(GET_EXHIBIT_TILES);
 
@@ -23,13 +31,13 @@ export default function Exhibits () {
   const { exhibits } = data;
 
   return (
-    <div>
+    <PageWrapper>
       <h2>Take a Neature Walk and see some Strange things</h2>
       <TileWrapper>
         {exhibits.map((exhibit) => (
           <ExhibitTile key={exhibit.id} {...exhibit} />
         ))}
       </TileWrapper>
-    </div>
+    </PageWrapper>
   )
 }
