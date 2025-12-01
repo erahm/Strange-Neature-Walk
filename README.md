@@ -30,6 +30,7 @@ docker-compose up --build
 Visit the app:
 - Frontend: http://localhost:5173
 - GraphQL endpoint: http://localhost:4000/graphql
+- GraphiQL UI: http://localhost:4000/graphiql
 
 To stream backend logs when running containers detached:
 
