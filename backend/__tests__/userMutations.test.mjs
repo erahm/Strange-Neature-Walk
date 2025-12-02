@@ -1,4 +1,3 @@
-import { subject } from '@casl/ability'
 import { userMutations } from '../graphql/resolvers/mutations/userMutations.js'
 import { defineAbilitiesForUser } from '../authz/userPrivileges.js'
 
