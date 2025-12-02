@@ -73,12 +73,6 @@ export const Exhibit = () => {
   const [categoryId, setCategoryId] = useState(undefined);
   const [deleteExhibit] = useMutation(DELETE_EXHIBIT);
   const [updateExhibit] = useMutation(UPDATE_EXHIBIT);
-
-  /*
-  ** These should be set in a context provider and re-evaluated when the userChanged event is fired.
-  ** I left it like this because it creates a handy bug for displaying AuthZ checks working
-  ** when trying to edit or delete resources the user doesn't have permission for.
-  */
   const { isAdmin, isManager } = isManagerAdmin(ability);
 
 

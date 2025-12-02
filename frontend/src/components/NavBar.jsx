@@ -7,6 +7,9 @@ export const NavBar = () => {
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('userChanged'))
+    }
     navigate('/')
   }
 

@@ -17,7 +17,9 @@ export const UserRegistrationForm = () => {
     if (data?.register?.token) {
       localStorage.setItem('token', data.register.token)
       localStorage.setItem('user', JSON.stringify(data.register.user))
-      if (typeof window !== 'undefined') {window.dispatchEvent(new Event('userChanged'))}
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('userChanged'))
+      }
       navigate('/users')
     }
   }
