@@ -188,7 +188,7 @@ export const Exhibit = () => {
         <EditDescrition value={description} onChange={(e) => setDescription(e.target.value)} />
         <ButtonWrapper>
           <SaveButton onClick={handleUpdate}>Save</SaveButton>
-          <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
+          { isAdmin && <DeleteButton onClick={handleDelete}>Delete</DeleteButton> }
         </ButtonWrapper>
       </ExhibitWrapper>
     }
