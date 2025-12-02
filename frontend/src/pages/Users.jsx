@@ -2,7 +2,7 @@ import { useQuery, useMutation } from '@apollo/client/react'
 import { GET_USERS, DELETE_USER } from '../queries/users'
 import { useAbility } from '../ability'
 import { CreateUserForm } from '../components/CreateUserForm'
-import { isManagerAdmin } from '../utilities/isManagerAdmin'
+import { isManagerAdmin } from '../utils/isManagerAdmin'
 
 export const Users = () => {
   const { data, loading, error } = useQuery(GET_USERS)

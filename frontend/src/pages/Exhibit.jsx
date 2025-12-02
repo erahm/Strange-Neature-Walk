@@ -4,7 +4,7 @@ import { GET_EXHIBIT, DELETE_EXHIBIT, UPDATE_EXHIBIT, GET_EXHIBIT_TILES } from "
 import { GET_CATEGORIES } from "../queries/categories"
 import { useNavigate, useParams } from "react-router-dom";
 import { useAbility } from "../ability";
-import { isManagerAdmin } from "../utilities/isManagerAdmin";
+import { isManagerAdmin } from "../utils/isManagerAdmin";
 import { useState, useEffect } from "react";
 
 const ExhibitWrapper = styled.div`
