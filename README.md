@@ -54,11 +54,10 @@ docker-compose kill <container name>
 
 ## Local development — Backend
 
-1) Ensure Node >= 24 on your machine. Use nvm if required:
+1) Ensure Node >= 24 on your machine. You can make use of the included `.nvmrc` file:
 
 ```bash
-nvm install 24
-nvm use 24
+nvm use
 ```
 
 2) Install backend dependencies and create a `.env` file:
