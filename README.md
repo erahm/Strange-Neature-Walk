@@ -134,4 +134,5 @@ npx prisma migrate dev --name add_field
 - Given more time I would like to:
   - create an Audit table to capture the before and after as well as UserId and event time on all Create/Update/Delete events.
   - Make it pretty. I added enough styling to make it usable but it's ugly. I started off just using `styles.css` and about halfway through decided to bring in `styled-components` to scope styles to elements and speed up development. When working on a small project by myself or a small team, `styles.css` is managable but doesn't scale well as the project and team grows.
+  - add more unit tests
 - I normally would not seed the database during the process of spinning up docker but for this I was editing and deleting exhibits enough that I thought it was useful. Just understand that the more you run this the more of basically the same exhibits you will have because I don't force them to be unique. Alternatively after the database has been seeded, you can comment out [line 19](https://github.com/erahm/Strange-Neature-Walk/blob/6e3f64a651e596961c65aa0db00230e81bf13777/backend/docker-entrypoint.sh#L19) in `backend/docker-entrypoint.sh`.
