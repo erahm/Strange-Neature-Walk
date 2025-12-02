@@ -83,7 +83,9 @@ export const Exhibit = () => {
   const handleDelete = async (e) => {
     e.preventDefault();
     const ok = window.confirm('Are you sure you want to delete this exhibit?');
-    if (!ok) return;
+    if (!ok) {
+      return;
+    }
     try {
       await deleteExhibit({ variables: { id }, refetchQueries: [{ query: GET_EXHIBIT_TILES }], awaitRefetchQueries: true });
     } catch (err) {
