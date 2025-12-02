@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { useMutation, useQuery } from "@apollo/client/react"
@@ -49,8 +49,14 @@ export const CreateExhibitForm = () => {
   const { data: categoriesData } = useQuery(GET_CATEGORIES);
   const categories = categoriesData?.exhibitCategories || [];
 
+  useEffect(() => {
+    if (categories.length > 0 && categoryId === undefined) {
+      setCategoryId(categories[0].id);
+    } }, [categories, categoryId]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log({ name, description, imageUrl, categoryId });
     try {
       await createExhibit({
         variables: { name, description, imageUrl, categoryId }
