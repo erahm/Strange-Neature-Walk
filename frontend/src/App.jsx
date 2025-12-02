@@ -1,31 +1,11 @@
-import { Routes, Route, Link, useNavigate } from 'react-router-dom'
-import { Exhibit, Exhibits, Users, Login, Register } from './pages'
+import { Routes, Route } from 'react-router-dom'
+import { Exhibit, Exhibits, Users, Login, Register, CreateExhibit } from './pages'
+import { NavBar } from './components/NavBar';
 
 export default function App () {
-  const navigate = useNavigate()
-  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-  const currentUser = typeof window !== 'undefined' && localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    navigate('/')
-  }
   return (
     <div className="app">
-      <nav>
-        <h1>Strange Neature Walk</h1>
-        <Link to="/">Exhibits</Link>
-        {currentUser && <Link to="/users">Users</Link>}
-        <span className='user-management'>
-          {!token && <Link to="/login">Login</Link>}
-          {!token && <Link to="/register">Register</Link>}
-          {currentUser && <span className='user-info'>
-            <div>Hello, {currentUser.name}</div>
-            <div>({currentUser.role})</div>
-            </span>}
-          {token && <button onClick={handleLogout}>Logout</button>}
-        </span>
-      </nav>
+      <NavBar />
       <main>
         <Routes>
           <Route path="/" element={<Exhibits />} />
@@ -33,6 +13,7 @@ export default function App () {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/exhibit/:id" element={<Exhibit />} />
+          <Route path="/exhibit/create" element={<CreateExhibit />} />
         </Routes>
       </main>
     </div>
