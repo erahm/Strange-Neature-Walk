@@ -19,12 +19,6 @@ async function main() {
     { name: 'Admin', email: 'admin@example.com', password: 'password', role: 'ADMIN' }
   ];
 
-  const exhibitCategories = [
-    { name: 'Flora' },
-    { name: 'Fauna' },
-    { name: 'Fungi' }
-  ];
-
   const exhibits = [
     { name: 'Bear', description: "It is estimated that bears kill over two million salmon a year. Attacks by salmon on bears are much more rare. Right? That's got to be true, right?", categoryName: 'Fauna', imageUrl: 'https://i.ytimg.com/vi/PjroTXtMtIA/hqdefault.jpg' },
     { name: 'Shark', description: "Menacing and terrifying, the shark has been menacing and terrifying for over a decade!", categoryName: 'Fauna', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzdMq3MiF87k9nWRNdxEN_YvPenpLj2gt5JQ&s' },
@@ -45,15 +39,15 @@ async function main() {
     }
   });
 
-  exhibitCategories.forEach(async (category) => {
-    const existing = await prisma.exhibitCategory.findUnique({ where: { name: category.name } });
-    if (!existing) {
-      await prisma.exhibitCategory.create({ data: category });
-    }
-  });
-
   exhibits.forEach( async (exhibit) => {
-    const category = await prisma.exhibitCategory.findUnique({ where: { name: exhibit.categoryName } });
+    const exitingCategory = await prisma.exhibitCategory.findUnique({ where: { name: exhibit.categoryName } });
+    let category = undefined;
+    if (!exitingCategory) {
+      category = await prisma.exhibitCategory.create({ data: { name: exhibit.categoryName } });
+    }
+    else {
+      category = await prisma.exhibitCategory.findUnique({ where: { name: exhibit.categoryName } });
+    }
     if (category) {
       const data = {
         name: exhibit.name,
